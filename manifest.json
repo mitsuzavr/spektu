@@ -1,19 +1,19 @@
 {
   "manifest_version": 3,
-  "name": "Spektu",
-  "version": "1.0.0",
 
-  "action": {
-    "default_popup": "src/pages/popup.html"
-  },
+  "name": "Spektu",
   "description": "Browser extension that shows the progress of watched videos on VideoLearning VŠEM.",
+  "version": "1.0.0",
+  "author": "Michael Shelenberg",
   "icons": {
     "16": "dist/images/icons/icon16.png",
     "48": "dist/images/icons/icon48.png",
     "128": "dist/images/icons/icon128.png"
   },
 
-  "author": "Michael Shelenberg",
+  "action": {
+    "default_popup": "src/pages/popup.html"
+  },
   "content_scripts": [
     {
       "matches": ["*://*.videolearningvsem.cz/homepage/prehled*"],
