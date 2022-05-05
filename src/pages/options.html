@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Options</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../dist/styles/styles.css" />
+  </head>
+  <body>
+    <h1 class="text-4xl">⚙️ Options</h1>
+
+    <div class="py-2 grid gap-2"></div>
+    <a id="export-data-btn">
+      <button
+        class="transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-4 border-b-4 border-gray-200 hover:border-gray-300 rounded-lg w-full inline-flex justify-center items-center"
+      >
+        Export data
+      </button>
+    </a>
+
+    <input type="file" id="import-data-btn" class="hidden" />
+    <label
+      for="import-data-btn"
+      class="transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-4 border-b-4 border-gray-200 hover:border-gray-300 rounded-lg w-full inline-flex justify-center items-center"
+    >
+      <!-- <button
+      > -->
+      Import data
+      <!-- </button> -->
+    </label>
+
+    <button
+      id="delete-data-btn"
+      class="transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-4 border-b-4 border-gray-200 hover:border-gray-300 rounded-lg w-full inline-flex justify-center items-center"
+    >
+      Delete data
+    </button>
+
+    <!-- Scripts -->
+    <script src="../scripts/options.js"></script>
+  </body>
+</html>

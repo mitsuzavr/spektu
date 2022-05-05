@@ -14,6 +14,7 @@
   "action": {
     "default_popup": "src/pages/popup.html"
   },
+  "options_page": "src/pages/options.html",
   "content_scripts": [
     {
       "matches": ["*://*.videolearningvsem.cz/homepage/prehled*"],
