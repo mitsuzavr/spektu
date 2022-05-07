@@ -3,3 +3,6 @@ node_modules
 
 # Build
 web-ext-artifacts
+
+# Tailwindcss output
+dist/styles
