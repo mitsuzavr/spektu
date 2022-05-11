@@ -26,5 +26,5 @@
     }
   ],
   "host_permissions": ["*://*.videolearningvsem.cz/*"],
-  "permissions": ["storage"]
+  "permissions": ["storage", "bookmarks"]
 }
