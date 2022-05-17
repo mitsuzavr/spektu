@@ -1,4 +1,4 @@
-// Exports data
+// ## Export data
 chrome.storage.sync.get(["key"], (result) => {
   const filename = "export-spektu.txt";
   const jsonStr = JSON.stringify(result);
@@ -11,7 +11,7 @@ chrome.storage.sync.get(["key"], (result) => {
   exportDataBtnEl.setAttribute("download", filename);
 });
 
-// Imports data
+// ## Import data
 document
   .querySelector("#import-data-btn")
   .addEventListener("change", handleFileSelect);
@@ -29,7 +29,7 @@ function handleFileLoad(event) {
   });
 }
 
-// Deletes data
+// ## Delete data
 document.querySelector("#delete-data-btn").addEventListener("click", () => {
   chrome.storage.sync.set({ key: JSON.stringify({}) }, () => {
     alert("Successfully deleted your data");
