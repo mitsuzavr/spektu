@@ -1,11 +1,12 @@
 // Progress circle params
-const width = 512;
+const width = 24;
 const center = width / 2;
-const stroke = 96;
+const stroke = 4;
 const radius = center - stroke;
 const circumference = radius * 2 * Math.PI;
 
-// Color from gradient based on %
+// Color definitions
+// ! thank
 const percentColors = [
   { pct: 0.0, color: { r: 200, g: 0, b: 0 } },
   { pct: 0.5, color: { r: 255, g: 165, b: 0 } },
@@ -18,6 +19,7 @@ function getColorForPercentage(pct, a) {
       break;
     }
   }
+  // ! let
   var lower = percentColors[i - 1];
   var upper = percentColors[i];
   var range = upper.pct - lower.pct;
@@ -36,64 +38,266 @@ function getColorForPercentage(pct, a) {
 chrome.storage.sync.get(["key"], (result) => {
   let savedVideos = JSON.parse(result.key || "[]");
 
-  let menuEl = document.querySelector("div#vMenu");
-  menuEl.querySelectorAll("a.hasSubmenu").forEach((plEl) => {
-    let videosCompleted = 0; // Counts how many videos have been completed
+  const menuEl = document.querySelector("div#vMenu");
+  const playlistEls = menuEl.querySelectorAll("a.hasSubmenu");
+  playlistEls.forEach((playlistEl) => {
+    let videosCompleted = 0; // Count how many videos have been completed
 
-    let videoEls = plEl.nextElementSibling.querySelectorAll("a.edittllect");
-    videoEls.forEach((vEl) => {
-      vEl.style.width = "100%";
-      vEl.style.margin = "0";
+    const playlistListEl = playlistEl.nextElementSibling;
+    const videoEls = playlistListEl.querySelectorAll("li");
+    videoEls.forEach((videoEl) => {
+      // Style the video element
+      videoEl.style.display = "flex";
+      videoEl.style.flex = "1 0";
+      videoEl.style.flexDirection = "row";
+      videoEl.style.background = "#E5E7EB";
 
-      // ! Bookmark
-      let courseEl = plEl.closest("div#vMenu > ul");
-      let courseTitle = courseEl.querySelector("a").textContent;
+      // Get video link url & style the video link element
+      const videoLinkEl = videoEl.querySelector("a.edittllect");
+      videoLinkEl.style.width = "100%";
+      let videoURL = videoLinkEl.getAttribute("href");
 
-      // Video progress
-      let vUrl = vEl.getAttribute("href");
-      let savedVideo = savedVideos.find((sV) => sV.url === vUrl);
+      // Add video actions element
+      const videoActionsEl = document.createElement("div");
+      videoActionsEl.style.display = "flex";
+      videoActionsEl.style.alignItems = "center";
+      videoActionsEl.style.padding = "9px 5px";
 
-      if (!savedVideo) return; // Showing video progress is skipped, if the video is not in localStorage
+      videoEl.addEventListener("mouseover", () => {
+        videoEl.style.background = "#D1D5DB";
+      });
+      videoEl.addEventListener("mouseout", () => {
+        videoEl.style.background = "#E5E7EB";
+      });
 
-      let progressEl = document.createElement("span");
-      progressEl.style.float = "right";
-      if (savedVideo.progress >= savedVideo.duration) {
-        progressEl.innerHTML = `
-        <svg style="fill: rgb(0, 200, 0);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24">
-          <!-- Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-          <path d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"/>
-        </svg>`;
+      videoEl.append(videoActionsEl);
 
-        videosCompleted++;
-      } else {
-        let percentage = savedVideo.progress / savedVideo.duration;
-        let offset = circumference - percentage * circumference;
+      // # Bookmark
+      // Create bookmark element & add it to the video actions element
+      // let bookmarkEl = document.createElementNS(
+      //   "http://www.w3.org/2000/svg",
+      //   "svg"
+      // );
+      // bookmarkEl.style.marginLeft = "2px";
+      // bookmarkEl.style.cursor = "pointer";
+      // bookmarkEl.setAttribute("width", 24);
+      // bookmarkEl.setAttribute("height", 24);
+      // bookmarkEl.setAttribute("fill", "none");
 
-        progressEl.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
-          <circle
-            style="transform: rotate(-90deg); transform-origin: 50% 50%; stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${offset};"
-            stroke="${getColorForPercentage(percentage, 1)}"
-            stroke-width="${stroke}"
-            fill="transparent"
-            r="${radius}"
-            cx="${center}"
-            cy="${center}"
-          />
-        </svg>`;
+      // let isBookmarked = Math.random() > 0.7 ? true : false; // ! <--
+      // if (isBookmarked) {
+      //   bookmarkEl.innerHTML = `
+      //     <path d="M19 2H5C4.44772 2 4 2.44772 4 3V21.6493C4 21.8042 4.1685 21.9003 4.30182 21.8215L11.4715 17.5808C11.7847 17.3955 12.174 17.3951 12.4877 17.5796L19.6986 21.8226C19.8319 21.9011 20 21.805 20 21.6503V3C20 2.44772 19.5523 2 19 2Z" fill="#818CF8" stroke="#818CF8" stroke-width="4"/>
+      //   `;
+      // } else {
+      //   bookmarkEl.style.visibility = "hidden";
+      //   bookmarkEl.innerHTML = `
+      //     <path d="M19 2H5C4.44772 2 4 2.44772 4 3V21.6493C4 21.8042 4.1685 21.9003 4.30182 21.8215L11.4715 17.5808C11.7847 17.3955 12.174 17.3951 12.4877 17.5796L19.6986 21.8226C19.8319 21.9011 20 21.805 20 21.6503V3C20 2.44772 19.5523 2 19 2Z" stroke="#9CA3AF" stroke-width="4"/>
+      //   `;
+
+      //   // Show the bookmark on video element hover
+      //   videoEl.addEventListener("mouseover", () => {
+      //     bookmarkEl.style.visibility = "visible";
+      //   });
+      //   videoEl.addEventListener("mouseout", () => {
+      //     bookmarkEl.style.visibility = "hidden";
+      //   });
+
+      //   bookmarkEl.addEventListener("click", () => {
+      //     chrome.bookmarks.create({
+      //       title: "bookmarks.create() on MDN",
+      //       url: "https://developer.mozilla.org/Add-ons/WebExtensions/API/bookmarks/create",
+      //     });
+      //   });
+      // }
+
+      // videoActionsEl.append(bookmarkEl);
+
+      // # Progress
+      // Get video info from saved videos
+      let videoInfo = savedVideos.find((video) => video.url === videoURL);
+      if (videoInfo) {
+        // If found the video info, add video progress to the video actions element
+        let progressEl = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg"
+        );
+        progressEl.setAttribute("width", 24);
+        progressEl.setAttribute("height", 24);
+        progressEl.setAttribute("fill", "none");
+        progressEl.style.marginLeft = "2px";
+
+        if (videoInfo.progress >= videoInfo.duration) {
+          // Show ✅ green check mark indicating completed video
+          progressEl.innerHTML = `
+            <path d="M2 12.5L8.52705 18.8639C8.60472 18.9396 8.72861 18.9396 8.80629 18.8639L22 6" stroke="#22C55E" stroke-width="4" stroke-linecap="round"/>
+          `;
+          videoActionsEl.append(progressEl);
+
+          videosCompleted++;
+        } else {
+          // Show progress circle
+          let percentage = videoInfo.progress / videoInfo.duration;
+          let offset = circumference - percentage * circumference;
+
+          progressEl.innerHTML = `
+            <circle
+              style="transform: rotate(-90deg); transform-origin: 50% 50%; stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${offset};"
+              stroke="${getColorForPercentage(percentage, 1)}"
+              stroke-width="${stroke}"
+              fill="transparent"
+              r="${radius}"
+              cx="${center}"
+              cy="${center}"
+            />
+          `;
+          videoActionsEl.append(progressEl);
+        }
       }
-      vEl.append(progressEl);
+
+      // # Playlist progress
+      let percentage = videosCompleted / videoEls.length;
+      let backgroundWidth = Math.round(percentage * 100);
+
+      playlistEl.style.background = `
+        linear-gradient(
+          to right,
+          ${getColorForPercentage(percentage, 0.25)} ${backgroundWidth}%,
+          transparent ${backgroundWidth}%
+        )
+      `;
     });
-
-    // Playlist progress
-    let percentage = videosCompleted / videoEls.length;
-    let bgWidth = Math.round(percentage * 100);
-
-    plEl.style.background = `
-    linear-gradient(
-      to right,
-      ${getColorForPercentage(percentage, 0.25)} ${bgWidth}%,
-      transparent ${bgWidth}%
-    )`;
   });
 });
+
+function createBookmarkEl(videoActionsEl, videoEl, courseTitle, videoURL) {
+  let bookmarkEl = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "svg"
+  );
+  bookmarkEl.style.marginLeft = "2px";
+  bookmarkEl.style.cursor = "pointer";
+  bookmarkEl.setAttribute("width", 24);
+  bookmarkEl.setAttribute("height", 24);
+  bookmarkEl.setAttribute("fill", "none");
+
+  // Create bookmark on click
+  bookmarkEl.addEventListener("click", () => {
+    chrome.runtime.sendMessage({ title: courseTitle, url: videoURL });
+  });
+
+  // Decide to show bookmark or not
+  let isBookmarked = Math.random() > 0.7 ? true : false; // ! <--
+  if (isBookmarked) {
+    bookmarkEl.visibility = "visible"; // ! test with display
+    bookmarkEl.innerHTML = `
+      <path d="M19.8 2H4.2C4.08954 2 4 2.08954 4 2.2V21.6493C4 21.8042 4.1685 21.9003 4.30182 21.8215L11.4715 17.5808C11.7847 17.3955 12.174 17.3951 12.4877 17.5796L19.6986 21.8226C19.8319 21.9011 20 21.805 20 21.6503V2.2C20 2.08954 19.9105 2 19.8 2Z" fill="#818CF8" stroke="#818CF8" stroke-width="4"/>
+    `;
+  } else {
+    bookmarkEl.style.visibility = "hidden";
+    bookmarkEl.innerHTML = `
+      <path d="M19.8 2H4.2C4.08954 2 4 2.08954 4 2.2V21.6493C4 21.8042 4.1685 21.9003 4.30182 21.8215L11.4715 17.5808C11.7847 17.3955 12.174 17.3951 12.4877 17.5796L19.6986 21.8226C19.8319 21.9011 20 21.805 20 21.6503V2.2C20 2.08954 19.9105 2 19.8 2Z" stroke="#9CA3AF" stroke-width="4"/>
+    `;
+
+    // Show the bookmark on video element hover
+    videoEl.addEventListener("mouseover", () => {
+      bookmarkEl.style.visibility = "visible";
+    });
+    videoEl.addEventListener("mouseout", () => {
+      bookmarkEl.style.visibility = "hidden";
+    });
+  }
+
+  videoActionsEl.append(bookmarkEl);
+}
+
+function createProgressEl(savedVideos, videoURL, videoActionsEl) {
+  // Get video info from saved videos
+  let videoInfo = savedVideos.find((video) => video.url === videoURL);
+
+  if (videoInfo) {
+    // If found the video info, add video progress to the video actions element
+    let progressEl = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg"
+    );
+    progressEl.setAttribute("width", 24);
+    progressEl.setAttribute("height", 24);
+    progressEl.setAttribute("fill", "none");
+    progressEl.style.marginLeft = "2px";
+
+    if (videoInfo.progress >= videoInfo.duration) {
+      // Show ✅ green check mark indicating completed video
+      progressEl.innerHTML = `
+            <path d="M2 12.5L8.52705 18.8639C8.60472 18.9396 8.72861 18.9396 8.80629 18.8639L22 6" stroke="#22C55E" stroke-width="4" stroke-linecap="round"/>
+          `;
+      videoActionsEl.append(progressEl);
+
+      videosCompleted++;
+    } else {
+      // Show progress circle
+      let percentage = videoInfo.progress / videoInfo.duration;
+      let offset = circumference - percentage * circumference;
+
+      progressEl.innerHTML = `
+            <circle
+              style="transform: rotate(-90deg); transform-origin: 50% 50%; stroke-dasharray: ${circumference} ${circumference}; stroke-dashoffset: ${offset};"
+              stroke="${getColorForPercentage(percentage, 1)}"
+              stroke-width="${stroke}"
+              fill="transparent"
+              r="${radius}"
+              cx="${center}"
+              cy="${center}"
+            />
+          `;
+      videoActionsEl.append(progressEl);
+    }
+  }
+}
+
+(async () => {
+  let storage = await chrome.storage.sync.get();
+  let savedVideos = JSON.parse(storage.key || "[]");
+
+  const menuEl = document.querySelector("div#vMenu");
+  const playlistEls = menuEl.querySelectorAll("a.hasSubmenu");
+  playlistEls.forEach((playlistEl) => {
+    var videosCompleted = 0; // Count completed videos in the playlist
+
+    let courseEl = playlistEl.closest("div#vMenu > ul");
+    let courseTitle = courseEl.querySelector("a").textContent;
+
+    // Loop through all videos in the playlist
+    const playlistListEl = playlistEl.nextElementSibling;
+    const videoEls = playlistListEl.querySelectorAll("li");
+    videoEls.forEach((videoEl) => {
+      // Style video element
+      videoEl.style.display = "flex";
+      videoEl.style.flex = "1 0";
+      videoEl.style.flexDirection = "row";
+      videoEl.style.background = "#E5E7EB";
+      videoEl.addEventListener("mouseover", () => {
+        videoEl.style.background = "#D1D5DB";
+      });
+      videoEl.addEventListener("mouseout", () => {
+        videoEl.style.background = "#E5E7EB";
+      });
+
+      // Get video URL
+      const videoLinkEl = videoEl.querySelector("a.edittllect");
+      videoLinkEl.style.width = "100%";
+      let videoURL = videoLinkEl.getAttribute("href");
+
+      // Create video actions element & add it to the video element
+      const videoActionsEl = document.createElement("div");
+      videoActionsEl.style.display = "flex";
+      videoActionsEl.style.alignItems = "center";
+      videoActionsEl.style.padding = "9px 5px";
+      videoEl.append(videoActionsEl);
+
+      createBookmarkEl(videoActionsEl, videoEl, courseTitle, videoURL);
+
+      createProgressEl(savedVideos, videoURL, videoActionsEl);
+    });
+  });
+})();

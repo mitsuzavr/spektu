@@ -10,68 +10,63 @@
     <link rel="stylesheet" href="../../dist/styles/styles.css" />
   </head>
   <body class="popup">
-    <main class="p-3">
-      <!-- Bookmarked videos -->
-      <div class="p-2">
-        <h2 class="text-lg font-medium inline-flex items-center">
+    <main class="p-4">
+      <!-- Bookmarks -->
+      <div id="bookmarks">
+        <h2 class="flex items-center mb-2 text-lg font-medium">
           <svg
-            class="fill-indigo-400 mr-2"
+            class="mr-2 fill-indigo-400"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
-            width="20"
-            height="20"
           >
-            <!-- ! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
             <path
-              d="M384 48V512l-192-112L0 512V48C0 21.5 21.5 0 48 0h288C362.5 0 384 21.5 384 48z"
+              d="M19.8 2H4.2C4.08954 2 4 2.08954 4 2.2V21.6493C4 21.8042 4.1685 21.9003 4.30182 21.8215L11.4715 17.5808C11.7847 17.3955 12.174 17.3951 12.4877 17.5796L19.6986 21.8226C19.8319 21.9011 20 21.805 20 21.6503V2.2C20 2.08954 19.9105 2 19.8 2Z"
+              fill="#818CF8"
+              stroke="#818CF8"
+              stroke-width="4"
             />
           </svg>
-          Bookmarked courses
+          Bookmarked videos
         </h2>
 
-        <div class="grid grid-cols-2 gap-2 py-2">
-          <button
-            id="bookmark-btn"
-            class="transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 p-2 border-b-4 border-gray-200 hover:border-gray-300 rounded-lg"
-          >
-            <img
-              class="w-full p-1"
-              src="../../dist/images/thumbnails/marketing.svg"
-              alt="Marketing thumbnail"
-            />
-            <div class="text-sm text-center py-1">Marketing</div>
-          </button>
-        </div>
+        <div id="bookmarks-menu" class="grid grid-cols-2 gap-2"></div>
       </div>
 
-      <!-- Support the author -->
-      <div class="p-2">
-        <h2 class="text-lg font-medium inline-flex items-center">
+      <!-- Settings & support the project -->
+      <div>
+        <h2 class="flex items-center mb-2 text-lg font-medium">
           <svg
-            class="fill-indigo-400 mr-2"
+            class="mr-2 fill-indigo-400"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            width="20"
-            height="20"
           >
-            <!-- ! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
             <path
-              d="M0 190.9V185.1C0 115.2 50.52 55.58 119.4 44.1C164.1 36.51 211.4 51.37 244 84.02L256 96L267.1 84.02C300.6 51.37 347 36.51 392.6 44.1C461.5 55.58 512 115.2 512 185.1V190.9C512 232.4 494.8 272.1 464.4 300.4L283.7 469.1C276.2 476.1 266.3 480 256 480C245.7 480 235.8 476.1 228.3 469.1L47.59 300.4C17.23 272.1 .0003 232.4 .0003 190.9L0 190.9z"
+              d="M19.7 3.66932C16.636 1.74996 13.5719 4.45397 12.4833 5.59424C12.2617 5.82633 11.8741 5.82633 11.6526 5.59424C10.5639 4.45397 7.49991 1.74996 4.43589 3.66932C0.619869 6.05976 1.8103 10.861 4.43589 13.8287C7.14297 16.8885 11.1991 20.2819 11.9471 20.9005C12.0182 20.9593 12.1195 20.9609 12.1925 20.9046C12.9813 20.2971 17.3235 16.8953 19.7 13.8287C21.9145 10.971 23.516 6.05976 19.7 3.66932Z"
+              fill="#818CF8"
+              stroke="#818CF8"
+              stroke-width="4"
             />
           </svg>
-          Support the author
+          Sponsor the project
         </h2>
 
-        <div class="py-2 grid gap-2">
+        <div class="grid gap-2">
+          <!-- Buy Me a Coffee -->
           <a
-            class="transition ease-in-out delay-100 duration-300 bg-yellow-300 py-2 px-4 border-b-4 border-yellow-400 rounded-lg w-full inline-flex justify-center items-center"
+            class="flex justify-center items-center w-full p-3 transition ease-in-out delay-100 duration-300 bg-yellow-200 hover:bg-yellow-300 text-white font-bold border-b-4 border-yellow-300 hover:border-yellow-400 rounded-lg cursor-pointer"
             href="https://www.buymeacoffee.com/mitsuzavr"
             target="_blank"
             rel="noopener noreferrer"
           >
             <svg
-              width="148"
-              height="28"
+              width="144"
+              height="24"
               viewBox="0 0 4169 913"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -165,29 +160,18 @@
             </svg>
           </a>
 
+          <!-- Settings -->
           <button
-            class="transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-4 border-b-4 border-gray-200 hover:border-gray-300 rounded-lg w-full inline-flex justify-center items-center"
             id="options-btn"
+            class="flex justify-center items-center w-full p-3 transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold border-b-4 border-gray-200 hover:border-gray-300 rounded-lg cursor-pointer"
           >
-            <svg
-              class="fill-gray-600 mr-2"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              width="20"
-              height="20"
-            >
-              <!-- ! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-              <path
-                d="M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z"
-              />
-            </svg>
-            Settings
+            ⚙️ Settings
           </button>
         </div>
       </div>
     </main>
 
     <!-- Scripts -->
-    <script src="../scripts/popup.js"></script>
+    <script type="module" src="../scripts/popup.js"></script>
   </body>
 </html>

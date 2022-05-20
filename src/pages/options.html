@@ -10,20 +10,20 @@
     <link rel="stylesheet" href="../../dist/styles/styles.css" />
   </head>
   <body>
-    <div class="container mx-auto px-4 py-8 grid gap-4">
+    <div class="container grid gap-4 mx-auto px-4 py-8">
       <!-- Data & privacy -->
       <div class="grid gap-2">
         <h2 class="text-lg font-bold">Data & privacy</h2>
         <p>
-          Spektu doesn't keep your video progress data. Your video progress data
-          is saved to your browser storage or (if enabled) synchronized to your
-          Mozilla / Google account.
+          Spektu doesn't keep your progress data. Your progress data is saved to
+          your browser storage or (if enabled) synchronized to your Mozilla /
+          Google account.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
           <a id="export-data-btn">
             <button
-              class="transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-4 border-b-4 border-gray-200 hover:border-gray-300 rounded-lg w-full inline-flex justify-center items-center cursor-pointer"
+              class="flex justify-center items-center w-full p-3 transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold border-b-4 border-gray-200 hover:border-gray-300 rounded-lg cursor-pointer"
             >
               💾 Export data
             </button>
@@ -32,14 +32,14 @@
           <input type="file" id="import-data-btn" class="hidden" />
           <label
             for="import-data-btn"
-            class="transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-4 border-b-4 border-gray-200 hover:border-gray-300 rounded-lg w-full inline-flex justify-center items-center cursor-pointer"
+            class="flex justify-center items-center w-full p-3 transition ease-in-out delay-100 duration-300 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold border-b-4 border-gray-200 hover:border-gray-300 rounded-lg cursor-pointer"
           >
             📥 Import data
           </label>
 
           <button
             id="delete-data-btn"
-            class="transition ease-in-out delay-100 duration-300 bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 border-b-4 border-red-500 hover:border-red-600 rounded-lg w-full inline-flex justify-center items-center cursor-pointer"
+            class="flex justify-center items-center w-full p-3 transition ease-in-out delay-100 duration-300 bg-red-400 hover:bg-red-500 text-white font-bold border-b-4 border-red-500 hover:border-red-600 rounded-lg cursor-pointer"
           >
             🔥 Delete data
           </button>
