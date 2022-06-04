@@ -14,10 +14,3 @@ Browser extension that shows the progress of watched videos on VideoLearning VŠ
 ```bash
   yarn build
 ```
-
-## To-do
-
-* [x] video marker
-* [ ] bookmarks
-* [ ] settings (export & import, delete data)
-* [x] sync to the cloud
