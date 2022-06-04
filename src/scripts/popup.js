@@ -42,7 +42,7 @@ import { getFolderID } from "../utils/bookmarks.js";
       bookmarkEl.innerHTML = `
         <img
           class="mb-2 w-full"
-          src="../../dist/images/thumbnails/${bookmarkThumbnail}.svg"
+          src="../src/images/thumbnails/${bookmarkThumbnail}.svg"
           alt="${bookmark.title} thumbnail"
         />
         <div class="text-sm text-center">${bookmark.title}</div>

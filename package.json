@@ -4,11 +4,11 @@
   "description": "Browser extension that shows the progress of watched videos on VideoLearning VŠEM.",
   "main": "",
   "scripts": {
-    "watch:css": "npx tailwindcss -i ./src/styles/globals.css -o ./dist/styles/styles.css --watch",
+    "watch:css": "npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch",
     "start:firefox": "web-ext run -t firefox-desktop",
     "start:chromium": "web-ext run -t chromium",
     "dev": "concurrently \"yarn watch:css\" \"yarn start:chromium\"",
-    "build:css": "npx tailwindcss -i ./src/styles/globals.css -o ./dist/styles/styles.css",
+    "build:css": "npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css",
     "build": "rm -rf web-ext-artifacts && yarn build:css && web-ext build"
   },
   "repository": "https://github.com/mitsuzavr/spektu.git",
